@@ -1,7 +1,7 @@
 <?php
 session_start();
 
-// Simulação (você pode substituir por consulta ao banco depois)
+
 $matriculaCorreta = '1234';
 $senhaCorreta = 'senha123';
 

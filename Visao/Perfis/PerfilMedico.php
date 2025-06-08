@@ -114,7 +114,7 @@ $medico->setSenha($dados['Senha']);
             <div class="fixer">
                 <div class="titulo-container">
                     <h1 class="titulo-principal">
-                        <a href="AreaDoMedico.php" class="link-titulo">Hospital Vitalis</a>
+                        <a href="../AreaDoMedico.php" class="link-titulo">Hospital Vitalis</a>
                     </h1>
                 </div>
                 <hr class="border border-secondary border-2 opacity-50" style="margin-top: 0;" />
@@ -144,7 +144,6 @@ $medico->setSenha($dados['Senha']);
                     }, 2000);
                 </script>
             <?php endif; ?>
-
             <form method="post" action="../../Controle/ControleUsuarios.php?ACAO=alterarMedico" novalidate>
                 <div class="mb-4">
                     <label class="matricula-label">Matrícula (não editável)</label>

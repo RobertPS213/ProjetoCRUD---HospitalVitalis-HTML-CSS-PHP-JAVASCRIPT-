@@ -3,11 +3,11 @@
     try{
         $pdo = Conexao::getInstance();
         if($pdo){
-            echo "Conexão Estabelecida com sucesso";
+            echo "Conexão estabelecida com sucesso!";
         } else{
-            echo " -> Conexão como banco de dados falhou";
+            echo "Conexão falhou";
         }
-    } catch(PDOExcepion $exc){
-        echo $exc->getMessage();
+    } catch(PDOException $exc){
+        echo $exc-getMessage();
     }
 ?>

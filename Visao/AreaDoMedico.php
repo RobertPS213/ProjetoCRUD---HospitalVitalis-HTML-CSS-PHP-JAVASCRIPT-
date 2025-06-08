@@ -40,7 +40,6 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <!-- Dados futuros das consultas virão aqui -->
                         </tbody>
                     </table>
                 </div>
