@@ -1,6 +1,5 @@
 CREATE DATABASE CRUD_PHP_PDO;
 USE CRUD_PHP_PDO;
-
 CREATE TABLE Paciente(
     ID INT AUTO_INCREMENT,
     Nome VARCHAR(100),
@@ -8,17 +7,17 @@ CREATE TABLE Paciente(
     CPF VARCHAR(14) NOT NULL UNIQUE,
     Telefone VARCHAR(15) NOT NULL,
     DataDeNascimento DATE,
-    Sexo ENUM('Masculino', 'Feminino', 'Outro'),
+    Sexo ENUM('Masculino', 'Feminino'),
     Endereço VARCHAR(100) NOT NULL,
     Cidade VARCHAR(100) NOT NULL,
     Estado VARCHAR(2) NOT NULL,
-    CEP VARCHAR(7) NOT NULL,
+    CEP VARCHAR(8) NOT NULL,
     MotivoDaConsulta VARCHAR(250) NOT NULL,
     DataCadastro TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     PRIMARY KEY(ID)
 )
-ENGINE = InnoDB;
-
+ENGINE = InnoDB AUTO_INCREMENT=1;
+ALTER TABLE Paciente AUTO_INCREMENT = 1;
 CREATE TABLE Recepcionista(
     ID INT AUTO_INCREMENT,
     Codigo INT UNIQUE NOT NULL,
@@ -27,7 +26,6 @@ CREATE TABLE Recepcionista(
     PRIMARY KEY(ID)
 )
 ENGINE = InnoDB;
-
 CREATE TABLE Medico(
     ID INT AUTO_INCREMENT,
     Matricula INT UNIQUE NOT NULL,
@@ -35,3 +33,4 @@ CREATE TABLE Medico(
     Senha VARCHAR(60) NOT NULL,
     PRIMARY KEY(ID)
 )
+ENGINE = InnoDB;

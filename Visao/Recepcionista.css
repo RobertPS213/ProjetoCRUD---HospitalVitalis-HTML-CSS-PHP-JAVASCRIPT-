@@ -1,0 +1,78 @@
+body {
+    background: linear-gradient(to bottom right, #f8f9fa, #d1d1d1);
+}
+.form-container {
+    max-width: 700px;
+    background-color: #2c2c2c;
+    padding: 40px;
+    border-radius: 15px;
+    box-shadow: 0 0 15px rgba(0,0,0,0.4);
+    margin: 40px auto;
+}
+.form-label {
+    font-weight: 500;
+}
+.form-control:focus, .form-select:focus {
+    border-color: #dc3545;
+    box-shadow: 0 0 0 0.2rem rgba(220, 53, 69, 0.25);
+}
+.form-heading {
+    font-size: 26px;
+    font-weight: bold;
+    color: #ffffff;
+    margin-bottom: 25px;
+    text-align: center;
+}
+.form-heading i {
+    margin-right: 10px;
+    color: #dc3545;
+}
+.form-section {
+    border-left: 4px solid #dc3545;
+    padding-left: 15px;
+    margin-bottom: 25px;
+}
+.btn-danger {
+    background: linear-gradient(45deg, #dc3545, #a93226);
+    border: none;
+    border-radius: 25px;
+    padding: 8px 20px;
+    color: white !important;
+    font-weight: bold;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+}
+.btn-danger:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+    background: linear-gradient(45deg, #a93226, #c0392b);
+}
+.btn-danger i {
+    margin-right: 8px;
+}
+.btn-sair {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    background: linear-gradient(45deg, #dc3545, #a93226);
+    border: none;
+    border-radius: 25px;
+    padding: 8px 20px;
+    color: white !important;
+    font-weight: bold;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+    text-decoration: none;
+}
+.btn-sair:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+    background: linear-gradient(45deg, #a93226, #c0392b);
+}
+.btn-sair i {
+    margin-right: 8px;
+    font-size: 16px;
+}
+.titulo-container {
+    position: relative;
+}

@@ -3,16 +3,27 @@
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Login Médico - Hospital Vitalis</title>
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
         <link rel="stylesheet" type="text/css" href="../style.css" />
-        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/css/bootstrap.min.css" rel="stylesheet" />
-        <title>Login Medico</title>
+        <style>
+            .form-container {
+                max-width: 600px;
+                margin: 24px auto;
+                padding: 30px;
+                background-color: #333333;
+                border-radius: 10px;
+                box-shadow: 0 0 10px #000;
+            }
+        </style>
     </head>
     <body>
         <div class="content">
             <div class="fixer">
                 <div class="titulo-container">
                     <h1 class="titulo-principal">
-                        <a href="../index.php" class="link-titulo">Hospital Vitalis</a>
+                        <a href="../../index.php" class="link-titulo">Hospital Vitalis</a>
                     </h1>
                 </div>
                 <hr class="border border-secondary border-2 opacity-50" style="margin-top: 0;" />
@@ -89,7 +100,7 @@
                     }, 2000);
                 </script>
             <?php endif; ?>
-            <div class="container mt-4 mb-5" style="max-width: 600px; background-color: #333333; padding: 30px; border-radius: 10px; box-shadow: 0 0 10px #000;">
+            <div class="form-container">
                 <form action="../../Controle/ControleUsuarios.php?ACAO=loginMedico" method="POST">
                     <div class="mb-3">
                         <label for="matricula" class="form-label text-light">Matrícula:</label>

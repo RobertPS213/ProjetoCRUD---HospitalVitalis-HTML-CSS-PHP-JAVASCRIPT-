@@ -1,12 +1,19 @@
 <?php
     require_once '../Modelo/ClassMedico.php';
+    require_once '../Modelo/ClassPaciente.php';
     require_once '../Modelo/ClassRecepcionista.php';
     require_once '../Modelo/DAO/ClassUsuarioDAO.php';
 
     session_start(); // Início da sessão para usar $_SESSION
 
-    $acao = $_GET['ACAO'];
+    // Receber a ação tanto de GET quanto de POST
+    $acao = isset($_POST['ACAO']) ? $_POST['ACAO'] : (isset($_GET['ACAO']) ? $_GET['ACAO'] : '');
     $usuarioDAO = new ClassUsuarioDAO();
+
+    if (empty($acao)) {
+        header("Location: ../Visao/AreaDoMedico.php?erroExclusao=1");
+        exit;
+    }
 
     switch ($acao) {
         case "cadastrarRecepcionista":
@@ -28,6 +35,7 @@
 
             $usuarioDAO->cadastrarRecepcionista($recepcionista);
             header("Location:../Visao/Login/RecepcionistaLogin.php?sucesso=1");
+            exit;
             break;
 
         case "loginMedico":
@@ -42,8 +50,10 @@
                 $_SESSION['senha'] = $medico['Senha'];
 
                 header("Location:../Visao/AreaDoMedico.php");
+                exit;
             } else {
                 header("Location:../Visao/Login/MedicoLogin.php?erro=1");
+                exit;
             }
             break;
 
@@ -53,14 +63,19 @@
             $recepcionista = $usuarioDAO->buscarRecepcionistaPorCodigo($codigo);
 
             if ($recepcionista && $recepcionista['Senha'] === $senha) {
-                // Armazena dados na sessão para usar no perfil
-                $_SESSION['codigo'] = $recepcionista['Codigo'];
-                $_SESSION['nome'] = $recepcionista['Nome'];
-                $_SESSION['senha'] = $recepcionista['Senha'];
+                // Armazena dados na sessão
+                $_SESSION['recepcionista'] = [
+                    'codigo' => $recepcionista['Codigo'],
+                    'nome' => $recepcionista['Nome'],
+                    'senha' => $recepcionista['Senha']
+                ];
 
+                // Redireciona para a área da recepcionista
                 header("Location:../Visao/AreaDaRecepcionista.php");
+                exit;
             } else {
                 header("Location:../Visao/Login/RecepcionistaLogin.php?erro=1");
+                exit;
             }
             break;
 
@@ -83,21 +98,76 @@
 
             $usuarioDAO->cadastrarMedico($medico);
             header("Location:../Visao/Login/MedicoLogin.php?sucesso=1");
+            exit;
             break;
         case 'alterarMedico':
-    $medicoDAO = new ClassUSuarioDAO();
-    $medico = new ClassMedico();
+            $medicoDAO = new ClassUsuarioDAO();
+            $medico = new ClassMedico();
 
-    $medico->setMatricula($_POST['matricula']);
-    $medico->setNome($_POST['nome']);
-    $medico->setSenha($_POST['senha']);
-    
-    $resultado = $medicoDAO->alterarMedico($medico);
-    if($resultado){
-        header("Location: ../Visao/Perfis/PerfilMedico.php?MSG=Alteração realizada com sucesso");
-    } else {
-        header("Location: ../Visao/Perfis/PerfilMedico.php?MSG=Erro ao alterar dados");
-    }
-    break;
+            $medico->setMatricula($_POST['matricula']);
+            $medico->setNome($_POST['nome']);
+            $medico->setSenha($_POST['senha']);
+            
+            $resultado = $medicoDAO->alterarMedico($medico);
+            if($resultado){
+                header("Location: ../Visao/Perfis/PerfilMedico.php?MSG=Alteração realizada com sucesso");
+                exit;
+            } else {
+                header("Location: ../Visao/Perfis/PerfilMedico.php?MSG=Erro ao alterar dados");
+                exit;
+            }
+            break;
+        case 'alterarRecepcionista':
+            if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+                $codigo = $_POST['codigo'];
+                $nome = $_POST['nome'];
+                $senha = $_POST['senha'];
+
+                $recep = new ClassRecepcionista();
+                $recep->setCodigo($codigo);
+                $recep->setNome($nome);
+                $recep->setSenha($senha);
+
+                $dao = new ClassUsuarioDAO();
+                
+                // Buscar os dados atuais para comparar
+                $dadosAtuais = $dao->buscarRecepcionistaPorCodigo($codigo);
+                
+                // Verificar se houve alterações
+                $temAlteracoes = false;
+                if ($nome !== $dadosAtuais['Nome']) {
+                    $temAlteracoes = true;
+                }
+                // Verifica se a senha foi alterada (diferente da senha atual e não vazia)
+                if ($senha !== $dadosAtuais['Senha'] && !empty($senha)) {
+                    $temAlteracoes = true;
+                }
+
+                if ($temAlteracoes) {
+                    $resultado = $dao->atualizarRecepcionista($recep);
+                    if ($resultado) {
+                        header('Location: ../Visao/Perfis/PerfilRecepcionista.php?MSG=Alteração realizada com sucesso!');
+                    } else {
+                        header('Location: ../Visao/Perfis/PerfilRecepcionista.php?MSG=Erro ao alterar dados');
+                    }
+                } else {
+                    header('Location: ../Visao/Perfis/PerfilRecepcionista.php?MSG=Erro ao alterar dados');
+                }
+                exit;
+            }
+            break;
+        case "excluirPaciente":
+            $id = $_POST['id'];
+            error_log("Tentando excluir paciente com ID: " . $id);
+            
+            if ($usuarioDAO->excluirPaciente($id)) {
+                error_log("Paciente excluído com sucesso. ID: " . $id);
+                echo 'success';
+            } else {
+                error_log("Erro ao excluir paciente. ID: " . $id);
+                echo 'error';
+            }
+            exit;
+            break;
 }
 ?>
