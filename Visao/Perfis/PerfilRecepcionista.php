@@ -2,11 +2,14 @@
     session_start();
     require_once '../../Modelo/ClassRecepcionista.php';
     require_once '../../Modelo/DAO/ClassUsuarioDAO.php';
-    if (!isset($_SESSION['codigo_recepcionista'])) {
+    if (!isset($_SESSION['recepcionista'])) {
         header('Location: ../Login/RecepcionistaLogin.php');
         exit;
     }
-    $codigo = $_SESSION['codigo_recepcionista'];
+    // Acessa o código do recepcionista do array na sessão
+    $codigo = $_SESSION['recepcionista']['codigo'];
+    // Também armazena o código na sessão para uso futuro
+    $_SESSION['codigo_recepcionista'] = $codigo;
     $dao = new ClassUsuarioDAO();
     $dados = $dao->buscarRecepcionistaPorCodigo($codigo);
     if (!$dados) {
@@ -45,7 +48,7 @@
                     <li class="dropdown">
                         Opções
                         <ul class="submenu">
-                            <li><a href="PerfilRecepcionista.php" class="medico">Perfil</a></li>
+                            <li><a href="../Perfis/PerfilRecepcionista.php" class="medico">Perfil</a></li>
                             <li><a href="../AreaDaRecepcionista.php" class="recepcionista">Pacientes</a></li>
                         </ul>
                     </li>
