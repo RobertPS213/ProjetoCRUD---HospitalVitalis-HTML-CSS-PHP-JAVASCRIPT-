@@ -48,6 +48,6 @@ SELECT
     m.Nome AS Nome_Medico,
     r.Nome AS Nome_Recepcionista
 FROM Paciente p
-LEFT JOIN Medico m ON p.ID_Medico = m.ID
-LEFT JOIN Recepcionista r ON p.ID_Recepcionista = r.ID
+LEFT JOIN Medico m ON p.ID = m.ID
+LEFT JOIN Recepcionista r ON p.ID = r.ID
 ORDER BY p.DataCadastro DESC
